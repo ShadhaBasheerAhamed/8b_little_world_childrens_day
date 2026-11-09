@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    background-color: #FDFBF7;
+    color: #1e293b;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF6F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #E2D9CC;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4C3AF;
+}
+
+/* Paper and Parchment Textures */
+.bg-parchment {
+  background-color: #FAF6EE;
+  background-image: radial-gradient(#E8DFC8 0.75px, transparent 0.75px), radial-gradient(#E8DFC8 0.75px, #FAF6EE 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+.bg-stationery {
+  background-color: #FFFDF9;
+  background-image: linear-gradient(to bottom, rgba(226, 217, 204, 0.4) 1px, transparent 1px);
+  background-size: 100% 2.2rem;
+  line-height: 2.2rem;
+}
+
+/* Holographic Card Sheen */
+.holo-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.holo-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.4) 30%,
+    rgba(245, 158, 11, 0.25) 45%,
+    rgba(56, 189, 248, 0.25) 55%,
+    rgba(255, 255, 255, 0.4) 70%,
+    transparent 80%
+  );
+  transform: rotate(25deg) translateY(-100%);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+
+.holo-card:hover::after {
+  transform: rotate(25deg) translateY(100%);
+}
+
+/* Interactive Envelope Styling */
+.envelope-wrapper {
+  perspective: 1200px;
+}
+
+.envelope-flap {
+  transform-origin: top center;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 20;
+}
+
+.envelope-flap.opened {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.letter-paper {
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+}
+
+.letter-paper.extracted {
+  transform: translateY(-80px) scale(1.02);
+  z-index: 30;
+}
+
+/* Magazine Barcode simulation */
+.barcode-lines {
+  background: repeating-linear-gradient(
+    90deg,
+    #1e293b,
+    #1e293b 2px,
+    transparent 2px,
+    transparent 4px,
+    #1e293b 4px,
+    #1e293b 7px,
+    transparent 7px,
+    transparent 9px
+  );
+}
+
+/* A4 Print Optimization */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
+  }
+}
+
